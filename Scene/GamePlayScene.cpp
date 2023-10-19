@@ -43,7 +43,7 @@ void GamePlayScene::Initialize()
 
 	sprite->Initialize(spriteData, uvTexture);
 
-	Vector3 playerPos = { 0.0f,0.0f,0.0f };
+	Vector3 playerPos = { -38, 22, 0 };
 	player_->Initialize(model_, playerPos);
 
 }
