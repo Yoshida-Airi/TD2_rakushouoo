@@ -153,10 +153,7 @@
     <ClCompile Include="Scene\GameTitleScene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="Object\Player\Player.cpp">
       <Filter>ソース ファイル\Object\Player</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,9 +247,6 @@
     </ClInclude>
     <ClInclude Include="LeakCheck.h">
       <Filter>ヘッダー ファイル\Logger</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>ヘッダー ファイル\Object\Player</Filter>

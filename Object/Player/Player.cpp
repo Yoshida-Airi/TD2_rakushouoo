@@ -1,4 +1,9 @@
 #include "Player.h"
+#include "Player.h"
+
+Player::~Player()
+{
+}
 
 /// <summary>
 /// 初期化
@@ -10,6 +15,8 @@ void Player::Initialize(Model* model, Vector3 position)
 	
 	input_ = Input::GetInstance();
 
+	model_->Initialize("Resources", "cube.obj");
+
 	transform_ =
 	{
 		{1.0,1.0f,1.0f},
@@ -17,7 +24,7 @@ void Player::Initialize(Model* model, Vector3 position)
 		position
 	};
 
-	speed_ = { 0.2,0.2f };
+	speed_ = { 0.2f,0.2f };
 	
 
 }
@@ -27,11 +34,29 @@ void Player::Initialize(Model* model, Vector3 position)
 /// </ summary>
 void Player::Update()
 {
-	move = { 0, 0, 0 };
-	
 
-	move.x += speed_.x;
-	move.y += speed_.y;
+	
+	if (input_->PushKey(DIK_W))
+	{
+		transform_.translate.z += speed_.x;
+	}
+	else if (input_->PushKey(DIK_S))
+	{
+		transform_.translate.z -= speed_.x;
+	}
+	else if (input_->PushKey(DIK_D))
+	{
+
+		transform_.translate.x += speed_.y;
+	}
+	else if (input_->PushKey(DIK_A))
+	{
+
+		transform_.translate.x -= speed_.y;
+	}
+
+
+	
 
 	model_->Update(transform_);
 
