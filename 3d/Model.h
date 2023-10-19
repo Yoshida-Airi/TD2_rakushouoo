@@ -38,8 +38,8 @@ public:
 	~Model();
 
 	void Initialize(const std::string& directoryPath, const std::string& filename);
-	void Update(WorldTransform transform);
-	void Draw(ViewProjection viewProjection);
+	
+	void Draw(ViewProjection viewProjection, WorldTransform transform);
 
 private:
 

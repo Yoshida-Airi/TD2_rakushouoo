@@ -58,9 +58,6 @@ void Player::Update()
 	worldTransform_.UpdateMatrix();
 
 
-	model_->Update(worldTransform_);
-
-
 }
 
 /// <summary>
@@ -68,5 +65,5 @@ void Player::Update()
 /// </ summary>
 void Player::Draw(ViewProjection viewProjection)
 {
-	model_->Draw(viewProjection);
+	model_->Draw(viewProjection, worldTransform_);
 }
