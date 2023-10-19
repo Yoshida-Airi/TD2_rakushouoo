@@ -68,11 +68,13 @@ void GameManager::Draw()
 
 void GameManager::Finalize()
 {
-	CoUninitialize();
-
 #ifdef _DEBUG
 	D3DResourceLeakChecker leakCheak;
 #endif // _DEBUG
+
+
+	CoUninitialize();
+
 
 	
 

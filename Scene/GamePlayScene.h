@@ -31,7 +31,7 @@ private:
 	uint32_t uvTexture;
 	uint32_t monsterTexture;
 
-	Transform transform_;
+	ViewProjection viewProjection_;
 
 	Player* player_ = nullptr;
 

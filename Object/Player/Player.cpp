@@ -17,48 +17,48 @@ void Player::Initialize(Model* model, Vector3 position)
 
 	model_->Initialize("Resources", "cube.obj");
 
-	transform_ =
-	{
-		{1.0,1.0f,1.0f},
-		{0.0f,0.0f,0.0f},
-		position
-	};
-
-	speed_ = { 0.2f,0.2f };
-	
-
+	worldTransform_.Initialize();
+	worldTransform_.translation_ = position;
+	worldTransform_.UpdateMatrix();
 }
 
 /// <summary>
 /// 初期化
 /// </ summary>
 void Player::Update()
-{
+{// キャラクターの移動ベクトル
+	move = { 0, 0, 0 };
 
-	
-	if (input_->PushKey(DIK_W))
-	{
-		transform_.translate.z += speed_.x;
-	}
-	else if (input_->PushKey(DIK_S))
-	{
-		transform_.translate.z -= speed_.x;
-	}
-	else if (input_->PushKey(DIK_D))
-	{
+	move.x += kCharacterSpeedX;
+	move.y += kCharacterSpeedY;
 
-		transform_.translate.x += speed_.y;
-	}
-	else if (input_->PushKey(DIK_A))
-	{
-
-		transform_.translate.x -= speed_.y;
+	if (isHit) {
+		move.y = 0;
+		isHit = false;
 	}
 
+	if (isHit2) {
+		kCharacterSpeedY = 0.2f;
+		isHit2 = false;
+	}
 
-	
+	// 押した方向で移動ベクトルを変更(左右)
+	if (input_->PushKey(DIK_SPACE)) {
+		move.y -= kCharacterSpeed;
+	}
 
-	model_->Update(transform_);
+
+
+	// 座標移動(ベクトルの加算)
+	worldTransform_.translation_.x += move.x;
+	worldTransform_.translation_.y -= move.y;
+
+
+	// ワールドトランスフォームの更新
+	worldTransform_.UpdateMatrix();
+
+
+	model_->Update(worldTransform_);
 
 
 }
@@ -66,7 +66,7 @@ void Player::Update()
 /// <summary>
 /// 初期化
 /// </ summary>
-void Player::Draw()
+void Player::Draw(ViewProjection viewProjection)
 {
-	model_->Draw();
+	model_->Draw(viewProjection);
 }

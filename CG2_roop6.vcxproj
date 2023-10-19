@@ -106,6 +106,8 @@
     <ClCompile Include="Scene\GamePlayScene.cpp" />
     <ClCompile Include="Scene\GameTitleScene.cpp" />
     <ClCompile Include="Utilty\CSVReader.cpp" />
+    <ClCompile Include="ViewProjection.cpp" />
+    <ClCompile Include="WorldTransform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="2d\ImGuiManager.h" />
@@ -139,6 +141,9 @@
     <ClInclude Include="Scene\GamePlayScene.h" />
     <ClInclude Include="Scene\GameTitleScene.h" />
     <ClInclude Include="Utilty\CSVReader.h" />
+    <ClInclude Include="Utilty\LeakCheck.h" />
+    <ClInclude Include="ViewProjection.h" />
+    <ClInclude Include="WorldTransform.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Resources\Shaders\Object3d.PS.hlsl">

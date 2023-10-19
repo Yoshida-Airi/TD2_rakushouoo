@@ -15,6 +15,8 @@
 #include<numbers>
 #include<cmath>
 #include<assert.h>
+#include"WorldTransform.h"
+#include"ViewProjection.h"
 
 struct MaterialData
 {
@@ -36,8 +38,8 @@ public:
 	~Model();
 
 	void Initialize(const std::string& directoryPath, const std::string& filename);
-	void Update(Transform transform);
-	void Draw();
+	void Update(WorldTransform transform);
+	void Draw(ViewProjection viewProjection);
 
 private:
 
@@ -72,6 +74,9 @@ private:
 
 	Microsoft::WRL::ComPtr < ID3D12Resource> lightResource_ = nullptr;
 	DirectionalLight* lightData_ = nullptr;
+
+	WorldTransform worldTransform_;
+	ViewProjection viewProjection_;
 
 	/// <summary>
 	/// Objファイルを読むための関数

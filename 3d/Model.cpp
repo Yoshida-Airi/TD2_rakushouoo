@@ -19,6 +19,7 @@ void Model::Initialize(const std::string& directoryPath, const std::string& file
 	modelData_ = LoadObjFile(directoryPath, filename);
 	textureHandle_ = texture_->LoadTexture(modelData_.material.textureFilePath);
 
+
 	VertexBuffer();
 	MaterialBuffer();
 	WvpBuffer();
@@ -32,7 +33,7 @@ void Model::Initialize(const std::string& directoryPath, const std::string& file
 	{
 		{1.0f, 1.0f, 1.0f },
 		{0.0f, 0.0f, 0.0f },
-		{0.0f, 0.0f, -10.0f}
+		{0.0f, 0.0f, -100.0f}
 	};
 
 	//ライトのデフォルト値
@@ -44,13 +45,13 @@ void Model::Initialize(const std::string& directoryPath, const std::string& file
 
 }
 
-void Model::Update(Transform transform)
+void Model::Update(WorldTransform transform)
 {
 
-	Transform transform_ = transform;
+	worldTransform_ = transform;
 
 
-	Matrix4x4 worldMatrix = MakeAffinMatrix(transform_.scale, transform_.rotate, transform_.translate);
+	Matrix4x4 worldMatrix = MakeAffinMatrix(worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 	Matrix4x4 cameraMatrix = MakeAffinMatrix(cameraTransform_.scale, cameraTransform_.rotate, cameraTransform_.translate);
 	Matrix4x4 viewMatrix = Inverse(cameraMatrix);
 	Matrix4x4 projectionMatrix = MakePerspectiveFovMatrix(0.45f, float(kClientWidth_) / float(kClientHeight_), 0.1f, 100.0f);
@@ -61,7 +62,7 @@ void Model::Update(Transform transform)
 
 }
 
-void Model::Draw()
+void Model::Draw(ViewProjection viewProjection)
 {
 	//VBVを設定
 	dxCommon_->GetCommandList()->IASetVertexBuffers(0, 1, &vertexBufferView_);
@@ -70,8 +71,9 @@ void Model::Draw()
 
 	//マテリアルCBufferの場所を設定
 	dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(0, materialResource_->GetGPUVirtualAddress());
-	dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, wvpResource_->GetGPUVirtualAddress());
-	dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(3, lightResource_->GetGPUVirtualAddress());
+	dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(1, worldTransform_.constBuff_->GetGPUVirtualAddress());
+	dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(3, lightResource_->GetGPUVirtualAddress()); dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(3, lightResource_->GetGPUVirtualAddress()); dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(3, lightResource_->GetGPUVirtualAddress()); dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(3, lightResource_->GetGPUVirtualAddress());
+	dxCommon_->GetCommandList()->SetGraphicsRootConstantBufferView(4, viewProjection.constBuff_->GetGPUVirtualAddress());
 
 	// SRVのDescriptorTableの先頭を設定。
 	dxCommon_->GetCommandList()->SetGraphicsRootDescriptorTable(2, texture_->GetGPUHandle(textureHandle_));

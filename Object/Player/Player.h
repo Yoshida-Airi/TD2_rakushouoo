@@ -3,8 +3,7 @@
 #include"Vector3.h"
 #include"Input.h"
 #include<cassert>
-#include"Transform.h"
-
+#include"WorldTransform.h"
 class Player
 {
 public:
@@ -23,14 +22,23 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </ summary>
-	void Draw();
+	void Draw(ViewProjection viewProjection);
 
 private:
 
 	Model* model_ = nullptr;
 	Input* input_ = nullptr;
 	Vector2 speed_ = {};
-	Transform transform_;
+	WorldTransform worldTransform_;
+
+	// キャラクターの移動速さ
+	float kCharacterSpeedX = 0.2f;
+	float kCharacterSpeedY = 0.2f;
+
+	float kCharacterSpeed = 0.4f;
+
+	bool isHit = false;
+	bool isHit2 = false;
 
 	Vector3 move;
 };
